@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Generator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 90%;
+      padding: 20px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: auto; /* Add overflow property for scrolling */
+    }
+
+    h1 {
+      color: #4CAF50;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      width: 100%;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    h2 {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    #output {
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Responsive Styles */
+    @media screen and (min-width: 600px) {
+      .container {
+        max-width: 600px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Word Generator</h1>
+    <label for="letters">Enter Letters:</label>
+    <input type="text" id="letters" placeholder="Enter letters">
+
+    <label for="length">Word Length (n):</label>
+    <input type="number" id="length" placeholder="Enter word length">
+
+    <label for="rule">Enter Rule (use '*' for permutation):</label>
+    <input type="text" id="rule" placeholder="Enter rule">
+
+    <button onclick="generateWords()">Generate Words</button>
+
+    <h2>Generated Words:</h2>
+    <div id="output"></div>
+  </div>
+
+  <script>
+    function generateWords() {
+      const letters = document.getElementById('letters').value;
+      const length = parseInt(document.getElementById('length').value, 10);
+      const rule = document.getElementById('rule').value;
+  
+      const words = generateWordsHelper(letters, length, rule);
+      const wordsFiltered = generateFilteredList(words, rule, length);
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = wordsFiltered.join(', ');
+    }
+  
+    function generateFilteredList(words,rule,length){
+        if (rule.length == 0){
+            return words;
+        }
+        const rulesplit = rule.split('');
+        let filteredWords = words
+        words.forEach(word => {
+            for(let i = 0; i<length; i++){
+                if(rulesplit[i] != '*'){
+                    if(word.charAt(i) != rulesplit[i]){
+                        filteredWords[words.indexOf(word)] = ""
+                    }
+                }
+            }
+        });
+        return filteredWords.filter(str => str !== "");
+    }
+
+
+    function generateWordsHelper(letters, length, rule) {
+      const result = [];
+  
+      function permute(prefix, remaining) {
+        if (prefix.length === length) {
+          result.push(prefix);
+          return;
+        }
+  
+        for (let i = 0; i < remaining.length; i++) {
+          const nextLetter = remaining[i];
+          const rest = remaining.slice(0, i) + remaining.slice(i + 1);
+          permute(prefix + nextLetter, rest);
+        }
+      }
+  
+      permute('', letters);
+  
+      return result;
+    }
+  </script>
+</body>
+</html>
