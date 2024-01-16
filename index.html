@@ -103,7 +103,7 @@
 
   <script>
     function generateWords() {
-      const letters = document.getElementById('letters').value;
+      let letters = document.getElementById('letters').value;
       letters = letters.toLowerCase();
       letters = letters.replace(" ",'');
       const length = parseInt(document.getElementById('length').value, 10);
