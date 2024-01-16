@@ -107,8 +107,9 @@
       letters = letters.toLowerCase();
       letters = letters.replace(" ",'');
       const length = parseInt(document.getElementById('length').value, 10);
-      const rule = document.getElementById('rule').value;
-  
+      let rule = document.getElementById('rule').value;
+      rule = rule.toLowerCase();
+      rule = rule.replace(" ",'');
       const words = generateWordsHelper(letters, length, rule);
       const wordsFiltered = generateFilteredList(words, rule, length);
       const outputDiv = document.getElementById('output');
