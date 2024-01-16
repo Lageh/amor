@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Word Generator</title>
+  <title>Gerador de Anagramas</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -87,13 +87,13 @@
   <div class="container">
     <h1>Gerador de anagramas</h1>
     <label for="letters">Coloque as letras:</label>
-    <input type="text" id="letters" placeholder="Enter letters">
+    <input type="text" id="letters" placeholder="Insira as letras">
 
     <label for="length">Quantidade de caracteres:</label>
-    <input type="number" id="length" placeholder="Enter word length">
+    <input type="number" id="length" placeholder="Insira o numero de caracteres">
 
-    <label for="rule">Caso saiba a posição de alguma letra, escreva na ordem, colocando * onde não se sabe a letra (exemplo: u**do -> umido)</label>
-    <input type="text" id="rule" placeholder="Enter rule">
+    <label for="rule">Opcional: Caso saiba a posição de alguma letra, escreva na ordem, colocando * onde não se sabe a letra</label>
+    <input type="text" id="rule" placeholder="u**d*">
 
     <button onclick="generateWords()">Gerar anagramas</button>
 
